@@ -627,3 +627,7 @@ if (require.main === module) {
 }
 
 module.exports = app;
+
+app.get('/', (req, res) => {
+  res.json({ message: 'e-scuela API is live!' });
+});
