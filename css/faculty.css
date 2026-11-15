@@ -1,0 +1,309 @@
+/* ==========================================================
+   FACULTY & ANNOUNCEMENTS STYLES
+   ========================================================== */
+
+.faculty-welcome,
+.student-welcome {
+  background: linear-gradient(135deg, var(--primary-dark, #5a060b) 0%, var(--primary, #7d090f) 100%);
+  color: #ffffff;
+  padding: 22px 26px;
+  border-radius: 16px;
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  box-shadow: 0 8px 24px rgba(125, 9, 15, 0.18);
+}
+
+.faculty-welcome h2,
+.student-welcome h2 {
+  margin: 0 0 4px 0;
+  font-size: 21px;
+  color: #ffffff;
+}
+
+.faculty-welcome p,
+.student-welcome p {
+  margin: 0;
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+/* Dashboard Teaching Schedule Items */
+.fac-schedule-item {
+  padding: 12px 14px;
+  border: 1px solid var(--border, #e2e8f0);
+  border-left: 4px solid var(--primary, #7d090f);
+  border-radius: 10px;
+  background: #fafafa;
+  margin-bottom: 10px;
+}
+
+.fac-schedule-item:last-child {
+  margin-bottom: 0;
+}
+
+.fac-sched-time {
+  font-size: 12px;
+  color: var(--text-muted, #64748b);
+  margin-bottom: 4px;
+}
+
+.fac-sched-title {
+  font-size: 13.5px;
+  color: var(--text-main, #1f2937);
+}
+
+/* Dashboard Recent Notice Cards */
+.fac-notice-card {
+  padding: 12px 14px;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 10px;
+  background: #ffffff;
+  margin-bottom: 10px;
+}
+
+.fac-notice-card:last-child {
+  margin-bottom: 0;
+}
+
+.fac-notice-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.fac-notice-head strong {
+  font-size: 13.5px;
+  color: var(--primary-dark, #5a060b);
+}
+
+.fac-notice-card p {
+  margin: 0 0 6px 0;
+  font-size: 12.5px;
+  color: var(--text-main, #1f2937);
+  line-height: 1.5;
+}
+
+.fac-notice-card small {
+  font-size: 11.5px;
+  color: var(--text-muted, #64748b);
+}
+
+/* Full Notice Board Items */
+.fac-notice-item {
+  padding: 14px 16px;
+  border: 1px solid var(--border, #e2e8f0);
+  border-left: 4px solid var(--primary, #7d090f);
+  border-radius: 12px;
+  background: #ffffff;
+  margin-bottom: 12px;
+}
+
+.fac-notice-item:last-child {
+  margin-bottom: 0;
+}
+
+.fac-notice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* My Handled Classes Grid */
+.faculty-classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+}
+
+.faculty-class-card {
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 14px;
+  background: #ffffff;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.faculty-class-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.fac-class-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Grades Entry Numeric Input */
+.grade-input {
+  width: 62px;
+  max-width: 100%;
+  padding: 7px 6px;
+  text-align: center;
+  border: 1.5px solid var(--border, #cbd5e1);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main, #1f2937);
+  background: #ffffff;
+}
+
+.grade-input:focus {
+  outline: none;
+  border-color: var(--primary, #7d090f);
+  box-shadow: 0 0 0 3px rgba(125, 9, 15, 0.12);
+}
+
+/* Attendance Mode Toggle & Subbar */
+.fac-att-mode-toggle {
+  display: inline-flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #e2e8f0);
+  gap: 4px;
+}
+
+.fac-att-mode-toggle button {
+  border: none;
+  background: transparent;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.fac-att-mode-toggle button.active {
+  background: var(--primary, #7d090f);
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(125, 9, 15, 0.25);
+}
+
+.attendance-subbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-muted, #64748b);
+}
+
+/* Attendance Status Pill Buttons */
+.fac-att-btn-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fac-att-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border, #cbd5e1);
+  background: #ffffff;
+  color: var(--text-main, #334155);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fac-att-btn:hover {
+  background: #f8fafc;
+}
+
+.fac-att-btn.active.present {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #15803d;
+}
+
+.fac-att-btn.active.late {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #b45309;
+}
+
+.fac-att-btn.active.absent {
+  background: #fee2e2;
+  border-color: #dc2626;
+  color: #b91c1c;
+}
+
+.fac-att-btn.active.excused {
+  background: #dbeafe;
+  border-color: #2563eb;
+  color: #1d4ed8;
+}
+
+/* Mobile Responsive Adjustments & Dropdown Overflow Prevention */
+@media (max-width: 640px) {
+  .faculty-welcome,
+  .student-welcome {
+    padding: 18px;
+  }
+
+  .faculty-welcome h2,
+  .student-welcome h2 {
+    font-size: 18px;
+  }
+
+  .faculty-classes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #facultyReports .section-head,
+  #reports .section-head,
+  #studentReports .section-head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  #facultyReports .filters,
+  #reports .filters,
+  #studentReports .filters,
+  #facultyReports .filters select,
+  #reports .filters select,
+  #studentReports .filters select,
+  #facReportSemFilter,
+  #facReportClassSelect,
+  #facGradeClassSelect,
+  #facAttClassSelect {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .fac-att-mode-toggle {
+    width: 100%;
+  }
+
+  .fac-att-mode-toggle button {
+    flex: 1;
+    text-align: center;
+  }
+}
+
