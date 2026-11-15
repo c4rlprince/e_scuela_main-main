@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install --prefix backend",
+  "framework": null,
   "rewrites": [
     {
       "source": "/api/(.*)",

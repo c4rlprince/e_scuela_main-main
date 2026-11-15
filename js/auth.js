@@ -155,20 +155,30 @@ async function loginFaculty(username, password) {
     return loginOfflineFaculty(username, password);
   }
 
-  let result;
+  const rawText = await response.text();
+  let result = null;
   try {
-    result = await response.json();
+    result = rawText ? JSON.parse(rawText) : null;
   } catch (error) {
-    console.error("Could not read faculty login response:", error);
-    loginError.textContent = "The login service returned an invalid response.";
-    return;
+    console.warn(`Faculty login API returned non-JSON (HTTP ${response.status}):`, rawText.slice(0, 120));
+    return loginOfflineFaculty(
+      username,
+      password,
+      `API route /api/login returned HTTP ${response.status}. Signed in offline — check /api/health on Vercel.`
+    );
   }
 
   if (!response.ok) {
-    if (response.status >= 500) {
-      return loginOfflineFaculty(username, password);
+    if (response.status >= 500 || response.status === 404) {
+      return loginOfflineFaculty(
+        username,
+        password,
+        result?.message
+          ? `${result.message} Signed in offline.`
+          : `Database API error (HTTP ${response.status}). Signed in offline.`
+      );
     }
-    loginError.textContent = result.message || "Invalid username or password.";
+    loginError.textContent = (result && result.message) || "Invalid username or password.";
     return;
   }
 
@@ -197,7 +207,7 @@ async function loginFaculty(username, password) {
   }
 }
 
-function loginOfflineFaculty(username, password) {
+function loginOfflineFaculty(username, password, customNotice = "") {
   const loginError = $("loginError");
   const demoFaculty = (typeof defaultFacultyList === "undefined" ? [] : defaultFacultyList)
     .find(f => String(f.username || "").toLowerCase() === username);
@@ -226,7 +236,7 @@ function loginOfflineFaculty(username, password) {
   if (typeof bindActiveFaculty === "function") bindActiveFaculty(fac.id);
   saveSession();
   openFacultyPortal();
-  toast("Signed in with the demo account. Database features are unavailable offline.");
+  toast(customNotice || "Signed in with the demo account. Database features are unavailable offline.");
 }
 
 function logout() {
