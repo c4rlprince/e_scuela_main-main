@@ -553,9 +553,22 @@ app.delete('/api/announcements/:id', async (req, res) => {
     }
 });
 
-// Root test route
-app.get('/api/health', (req, res) => {
-    res.status(200).json({ status: 'success', message: 'E-SCUELA Backend is running securely.' });
+// Root test & database connectivity check route
+app.get('/api/health', async (req, res) => {
+    try {
+        await pool.query('SELECT 1');
+        res.status(200).json({
+            status: 'success',
+            database: 'connected',
+            message: 'E-SCUELA Backend and cloud database are running.'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            database: 'disconnected',
+            message: error.message
+        });
+    }
 });
 
 // DELETE /api/faculty/:id - Delete faculty member
@@ -627,7 +640,3 @@ if (require.main === module) {
 }
 
 module.exports = app;
-
-app.get('/', (req, res) => {
-  res.json({ message: 'e-scuela API is live!' });
-});

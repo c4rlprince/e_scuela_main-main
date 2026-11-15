@@ -10,3 +10,9 @@ yarn-error.log*
 # OS Files
 .DS_Store
 Thumbs.db
+
+# Environment variables (keep database credentials secret)
+.env
+backend/.env
+.env.local
+.vercel

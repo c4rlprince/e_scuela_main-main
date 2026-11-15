@@ -140,8 +140,7 @@ async function loginFaculty(username, password) {
   loginError.textContent = "";
 
   if (!API_BASE_URL) {
-    loginError.textContent = "Database API is not configured.";
-    return;
+    return loginOfflineFaculty(username, password);
   }
 
   let response;
@@ -152,9 +151,8 @@ async function loginFaculty(username, password) {
       body: JSON.stringify({ username, password })
     });
   } catch (error) {
-    console.error("Faculty login API unreachable:", error);
-    loginError.textContent = "Cannot connect to the database server. Please try again later.";
-    return;
+    console.warn("Faculty login API unavailable; trying a demo account offline:", error);
+    return loginOfflineFaculty(username, password);
   }
 
   let result;
@@ -167,6 +165,9 @@ async function loginFaculty(username, password) {
   }
 
   if (!response.ok) {
+    if (response.status >= 500) {
+      return loginOfflineFaculty(username, password);
+    }
     loginError.textContent = result.message || "Invalid username or password.";
     return;
   }
@@ -196,6 +197,37 @@ async function loginFaculty(username, password) {
   }
 }
 
+function loginOfflineFaculty(username, password) {
+  const loginError = $("loginError");
+  const demoFaculty = (typeof defaultFacultyList === "undefined" ? [] : defaultFacultyList)
+    .find(f => String(f.username || "").toLowerCase() === username);
+
+  if (!demoFaculty || demoFaculty.password !== password) {
+    loginError.textContent = "Offline sign-in only supports the built-in demo faculty accounts.";
+    return;
+  }
+
+  const facultyList = data.facultyList || (data.facultyList = []);
+  let fac = facultyList.find(f => f.id === demoFaculty.id);
+  if (!fac) {
+    fac = { ...demoFaculty };
+    delete fac.password;
+    facultyList.push(fac);
+    persist();
+  }
+
+  const status = fac.status || "Active";
+  if (status !== "Active") {
+    loginError.textContent = `This faculty account is currently ${status.toLowerCase()}. Please contact the administrator.`;
+    return;
+  }
+
+  currentUser = { id: fac.id, name: fac.name, role: "Faculty" };
+  if (typeof bindActiveFaculty === "function") bindActiveFaculty(fac.id);
+  saveSession();
+  openFacultyPortal();
+  toast("Signed in with the demo account. Database features are unavailable offline.");
+}
 
 function logout() {
   closeDrawer();
